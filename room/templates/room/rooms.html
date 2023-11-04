@@ -1,0 +1,28 @@
+{% extends "core/layout.html" %}
+
+{% block title %}Rooms | {% endblock %}
+{% block body %}
+<div style="overflow:auto; height: 100%;">
+    <div class="d-flex" style="flex-wrap: wrap; justify-content: center;">
+
+      <div>
+        <form action="{% url 'createroom' %}" method="post" style="width: 100vw; margin: 1rem; display: flex; justify-content:center;">
+          {% csrf_token %}
+          <input style="outline: none; background-color: transparent;border:2px solid black; border-radius: 1rem;padding:.5rem 2rem; margin-right: 1rem;" type="text" name="roomname" placeholder="roomname">
+          <button class="btn btn-primary" style="border-radius: 1rem;padding: 0 1rem;">create</button>
+        </form>
+        <div style="color:red; display: flex;justify-content: center;">{{message}}</div>
+      </div>
+      
+        {% for room in rooms %}
+        <div class="card" style="width: 12rem;height: 9rem; margin: 1rem;">
+            <div class="card-body d-flex" style="flex-direction: column; justify-content: center; align-items: center;">
+              <h5 class="card-title">{{ room.name }}</h5>
+              <a href="{% url 'room' room.slug %}" class="btn btn-outline-primary">Join</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock  %}
